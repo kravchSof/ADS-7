@@ -6,38 +6,41 @@
 #include "train.h"
 
 int main() {
-  std::ofstream outputFile("data.txt");
+    std::ofstream fout("data.txt");
 
-  unsigned int randomSeed = time(nullptr);
+    unsigned int seed = time(nullptr);
 
-  for (int carriageCount = 10; carriageCount <= 500; carriageCount += 10) {
-    Train firstTrain;
-    Train secondTrain;
-    Train thirdTrain;
+    for (int n = 10; n <= 500; n += 10) {
+        Train t1;
+        Train t2;
+        Train t3;
 
-    for (int idx = 0; idx < carriageCount; idx++) {
-      firstTrain.addCar(false);
+        // all off
+        for (int i = 0; i < n; i++) {
+            t1.addCar(false);
+        }
+
+        // all on
+        for (int i = 0; i < n; i++) {
+            t2.addCar(true);
+        }
+
+        // random
+        for (int i = 0; i < n; i++) {
+            t3.addCar(rand_r(&seed) % 2);
+        }
+
+        t1.getLength();
+        t2.getLength();
+        t3.getLength();
+
+        fout << n << " "
+             << t1.getOpCount() << " "
+             << t2.getOpCount() << " "
+             << t3.getOpCount() << std::endl;
     }
 
-    for (int idx = 0; idx < carriageCount; idx++) {
-      secondTrain.addCar(true);
-    }
+    fout.close();
 
-    for (int idx = 0; idx < carriageCount; idx++) {
-      thirdTrain.addCar(rand_r(&randomSeed) % 2);
-    }
-
-    firstTrain.getLength();
-    secondTrain.getLength();
-    thirdTrain.getLength();
-
-    outputFile << carriageCount << " "
-               << firstTrain.getOpCount() << " "
-               << secondTrain.getOpCount() << " "
-               << thirdTrain.getOpCount() << std::endl;
-  }
-
-  outputFile.close();
-  
-  return 0;
+    return 0;
 }
