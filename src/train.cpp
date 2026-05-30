@@ -2,64 +2,59 @@
 #include "train.h"
 
 Train::Train() {
-    head = nullptr;
-    operationCounter = 0;
+    first = nullptr;
+    countOp = 0;
 }
 
-void Train::addCar(bool isLightOn) {
-    Car* newCarriage = new Car;
+void Train::addCar(bool light) {
+    Car* car = new Car;
 
-    newCarriage->light = isLightOn;
-    newCarriage->next = nullptr;
-    newCarriage->prev = nullptr;
+    car->light = light;
+    car->next = nullptr;
+    car->prev = nullptr;
 
-    if (head == nullptr) {
-        head = newCarriage;
-        head->next = head;
-        head->prev = head;
+    if (first == nullptr) {
+        first = car;
+        first->next = first;
+        first->prev = first;
     } else {
-        Car* lastCarriage = head->prev;
-        
-        lastCarriage->next = newCarriage;
-        newCarriage->prev = lastCarriage;
-        newCarriage->next = head;
-        head->prev = newCarriage;
+        Car* tail = first->prev;
+
+        tail->next = car;
+        car->prev = tail;
+        car->next = first;
+        first->prev = car;
     }
 }
 
 int Train::getLength() {
-    operationCounter = 0;
+    countOp = 0;
 
-    // Empty train case
-    if (head == nullptr) {
+    if (first == nullptr) {
         return 0;
     }
 
-    int trainSize = 1;
-    bool allLightsActive = head->light;
-    const Car* currentCarriage = head->next;
+    int len = 1;
+    bool allOn = first->light;
+    const Car* cur = first->next;
 
-    // Traverse the circular list
-    while (currentCarriage != head) {
-        trainSize++;
-        
-        if (!currentCarriage->light) {
-            allLightsActive = false;
+    while (cur != first) {
+        len++;
+        if (!cur->light) {
+            allOn = false;
         }
-        
-        currentCarriage = currentCarriage->next;
+        cur = cur->next;
     }
 
-    // Calculate operation count based on configuration
-    if (allLightsActive) {
-        operationCounter = trainSize * (trainSize + 1);
+    if (allOn) {
+        countOp = len * (len + 1);
     } else {
-        operationCounter = trainSize * 2;
+        countOp = len * 2;
     }
 
-    return trainSize;
+    return len;
 }
 
 int Train::getOpCount() {
-    return operationCounter;
+    return countOp;
 }
