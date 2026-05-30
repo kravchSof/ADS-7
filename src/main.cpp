@@ -38,6 +38,6 @@ int main() {
   }
 
   outputFile.close();
-
+  
   return 0;
 }
