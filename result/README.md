@@ -1,2 +1,2 @@
-<img width="800" height="600" alt="plot" src="https://github.com/user-attachments/assets/3375ee49-ebcf-4423-9945-44e98c3600a6" />
-Здесь размещаются графики с результатами экспериментов
+<img width="839" height="574" alt="plot (2)" src="https://github.com/user-attachments/assets/98b62d6e-aaf2-4e33-93a4-72677a88de9b" />
+Перестроенный
